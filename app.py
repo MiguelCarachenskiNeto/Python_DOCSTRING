@@ -1,13 +1,15 @@
 import os
 
-restaurantes=["Boteco do Chef","Comida Caseira"]
+restaurantes=[{"nome":"Boteco do Chef","categoria":"Bar","ativo":True},
+              {"nome":"Comida Caseira","categoria":"Restaurante","ativo":False},
+              {"nome":"Kibe Kitchen","categoria":"Árabe","ativo":True}]
 
 def voltar_ao_menu_principal():
-    input("\n Digite uma tecla para voltar ao menu principal: \n")
+    input("\nDigite uma tecla para voltar ao menu principal: \n")
     main() 
 
 def mostrar_subtitulo(texto):
-    os.system("cls")
+    os.system("clear")
     print(texto)
     print()
 
@@ -20,21 +22,30 @@ def opcao_invalida():
     voltar_ao_menu_principal()
 
 def cadastrar_novo_restaurante():
-    os.system("cls")
+    os.system("clear")
     nome_do_restaurante=input("digite o nome do novo restaurante: \n")
-    restaurantes.append(nome_do_restaurante)
+    os.system("clear")
+    categoria_do_restaurante=input("digite a categoria do novo restaurante: \n")
+    restaurantes.append({"nome":nome_do_restaurante,"categoria":categoria_do_restaurante,"ativo":False})
     print(f"\nO restaurante {nome_do_restaurante} foi cadastrado com sucesso!")
     voltar_ao_menu_principal()
 
 def listar_restaurantes():
-    os.system("cls")
+    os.system("clear")
     print("Restaurantes cadastrados:\n")
     for restaurante in restaurantes:
-        print(f"-{restaurante}")
+        nome_restaurante = restaurante["nome"]
+        categoria = restaurante["categoria"]
+        print(f"-{nome_restaurante} -- {categoria}")
     voltar_ao_menu_principal() 
 
 def nome_app():
-    print("Restaurante Expresso \n")
+    print('''
+███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+█▄─▄▄▀█▄─▄▄─█─▄▄▄▄█─▄─▄─██▀▄─██▄─██─▄█▄─▄▄▀██▀▄─██▄─▀█▄─▄█─▄─▄─█▄─▄▄─███▄─▄▄─█▄─▀─▄█▄─▄▄─█▄─▄▄▀█▄─▄▄─█─▄▄▄▄█─▄▄▄▄█─▄▄─█
+██─▄─▄██─▄█▀█▄▄▄▄─███─████─▀─███─██─███─▄─▄██─▀─███─█▄▀─████─████─▄█▀████─▄█▀██▀─▀███─▄▄▄██─▄─▄██─▄█▀█▄▄▄▄─█▄▄▄▄─█─██─█
+▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀▀▄▄▄▀▀▄▄▀▄▄▀▀▄▄▄▄▀▀▄▄▀▄▄▀▄▄▀▄▄▀▄▄▄▀▀▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀▀▀▄▄▄▄▄▀▄▄█▄▄▀▄▄▄▀▀▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄▀
+''')
 
 def exibir_opcoes():
     print("1-Cadastrar um restaurante")
@@ -62,7 +73,7 @@ def escolher_opcoes():
         opcao_invalida()
 
 def main():
-    os.system("cls")
+    os.system("clear")
     nome_app()
     exibir_opcoes()
     escolher_opcoes()
