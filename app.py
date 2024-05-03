@@ -18,6 +18,7 @@ def desligar_app():
     mostrar_subtitulo("Finalizando o app")
 
 def opcao_invalida():
+    os.system("clear")
     print("Opção inválida\n")
     voltar_ao_menu_principal()
 
@@ -25,7 +26,7 @@ def cadastrar_novo_restaurante():
     os.system("clear")
     nome_do_restaurante=input("digite o nome do novo restaurante: \n")
     os.system("clear")
-    categoria_do_restaurante=input("digite a categoria do novo restaurante: \n")
+    categoria_do_restaurante=input(f"digite a categoria do restaurante {nome_do_restaurante}\n")
     restaurantes.append({"nome":nome_do_restaurante,"categoria":categoria_do_restaurante,"ativo":False})
     print(f"\nO restaurante {nome_do_restaurante} foi cadastrado com sucesso!")
     voltar_ao_menu_principal()
@@ -36,8 +37,25 @@ def listar_restaurantes():
     for restaurante in restaurantes:
         nome_restaurante = restaurante["nome"]
         categoria = restaurante["categoria"]
-        print(f"-{nome_restaurante} -- {categoria}")
+        ativo = restaurante["ativo"]
+        print(f"-{nome_restaurante} -- {categoria} -- {ativo}")
     voltar_ao_menu_principal() 
+
+def ativar_restaurante():
+    mostrar_subtitulo("Alterando o estado do restaurante")
+    nome_restaurante=input("digite o nome do restaurante que deseja ativar/desativar:\n")
+    restaurante_encontrado = False
+    os.system("clear")
+    for restaurante in restaurantes:
+        if nome_restaurante == restaurante["nome"]:
+            restaurante_encontrado = True       
+            restaurante["ativo"] = not restaurante["ativo"]
+            mensagem = f"O restaurante {nome_restaurante} foi ativado com sucesso!" if restaurante["ativo"] else f"O restaurante {nome_restaurante} foi desativado com sucesso"
+            print(mensagem)
+    if not restaurante_encontrado:
+        print("O restaurante não foi encontrado")
+    voltar_ao_menu_principal()
+            
 
 def nome_app():
     print('''
@@ -62,7 +80,7 @@ def escolher_opcoes():
         elif escolha == 2:
             listar_restaurantes()
         elif escolha == 3:
-            print("Você escolheu ativar um restaurante\n")
+            ativar_restaurante()
         elif escolha == 4:
             print("Você escolheu sair do programa\n")
             desligar_app()
